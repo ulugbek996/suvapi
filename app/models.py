@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from     import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -48,6 +48,10 @@ class District(Base):
     region_id = Column(Integer, ForeignKey(
         "regions.id", ondelete="CASCADE"), primary_key=True)
 
+class Sensor(Base):
+    __tablename__ = "sensors"
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String, nullable=False)
 
 
 class Station(Base):
@@ -63,6 +67,13 @@ class Station(Base):
         "balans.id", ondelete="CASCADE"), primary_key=True)
     district_id = Column(Integer, ForeignKey(
         "districts.id", ondelete="CASCADE"), primary_key=True)
+    sensor_id = Column(Integer, ForeignKey(
+        "sensors.id", ondelete="CASCADE"), primary_key=True)
+    simcard = Column(String, nullable=False)
     code = Column(String,unique=True , nullable=False)
+    update_at = Column(String, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+                        nullable=False, server_default=text('now()'))
+
 
 
