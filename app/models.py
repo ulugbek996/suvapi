@@ -1,4 +1,4 @@
-from     import Column, Integer, String, Boolean, ForeignKey
+from  sqlalchemy   import Column, Integer, String, Boolean, ForeignKey, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -77,3 +77,14 @@ class Station(Base):
 
 
 
+class DataLastWater(Base):
+    __tablename__ = "datalastwaters"
+    id = Column(Integer, primary_key=True, nullable=False)
+    station_id = Column(Integer, ForeignKey(
+        "stations.id", ondelete="CASCADE"), primary_key=True)
+    level = Column(Float, nullable = False)
+    flow = Column(Float, nullable = False)
+    corec = Column(Integer, nullable = False)
+    timedata = Column(Integer , nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+                        nullable=False, server_default=text('now()'))
