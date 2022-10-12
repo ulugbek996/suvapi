@@ -22,7 +22,7 @@ class UserPrivate(Base):
     __tablename__ = "userprivate"
     id = Column(Integer, primary_key=True , nullable=False)
     user_id = Column(Integer, ForeignKey(
-        "users.id", ondelete="CASCADE"), primary_key=True)
+        "users.id", ondelete="CASCADE"))
     user_add = Column(Boolean, server_default = 'FALSE' , nullable = False)
     station_add = Column(Boolean, server_default = 'FALSE' , nullable = False)
 
@@ -34,11 +34,12 @@ class Region(Base):
 
 
 class Balans(Base):
-    __tablename__ = "balans"
+    __tablename__ = "tashkilot"
     id = Column(Integer,primary_key=True, nullable=False)
     name = Column(String, nullable=False)
     region_id = Column(Integer, ForeignKey(
-        "regions.id", ondelete="CASCADE"), primary_key=True)
+        "regions.id", ondelete="CASCADE"))
+
 
 
 class District(Base):
@@ -46,7 +47,7 @@ class District(Base):
     id = Column(Integer,primary_key=True, nullable=False)
     name = Column(String, nullable=False)
     region_id = Column(Integer, ForeignKey(
-        "regions.id", ondelete="CASCADE"), primary_key=True)
+        "regions.id", ondelete="CASCADE"))
 
 class Sensor(Base):
     __tablename__ = "sensors"
@@ -58,17 +59,17 @@ class Station(Base):
     __tablename__ = "stations"
     id = Column(Integer, primary_key=True, nullable=False)
     owner_id = Column(Integer, ForeignKey(
-        "users.id", ondelete="CASCADE"), primary_key=True)
+        "users.id", ondelete="CASCADE"))
     edit_id = Column(Integer, ForeignKey(
-        "users.id", ondelete="CASCADE"), primary_key=True)
+        "users.id", ondelete="CASCADE"))
     region_id = Column(Integer, ForeignKey(
-        "regions.id", ondelete="CASCADE"), primary_key=True)
-    balans_id = Column(Integer, ForeignKey(
-        "balans.id", ondelete="CASCADE"), primary_key=True)
+        "regions.id", ondelete="CASCADE"))
+    tashkilot_id = Column(Integer, ForeignKey(
+        "tashkilot.id", ondelete="CASCADE"))
     district_id = Column(Integer, ForeignKey(
-        "districts.id", ondelete="CASCADE"), primary_key=True)
+        "districts.id", ondelete="CASCADE"))
     sensor_id = Column(Integer, ForeignKey(
-        "sensors.id", ondelete="CASCADE"), primary_key=True)
+        "sensors.id", ondelete="CASCADE"))
     simcard = Column(String, nullable=False)
     code = Column(String,unique=True , nullable=False)
     update_at = Column(String, nullable=False)
@@ -81,7 +82,7 @@ class DataLastWater(Base):
     __tablename__ = "datalastwaters"
     id = Column(Integer, primary_key=True, nullable=False)
     station_id = Column(Integer, ForeignKey(
-        "stations.id", ondelete="CASCADE"), primary_key=True)
+        "stations.id", ondelete="CASCADE"))
     level = Column(Float, nullable = False)
     flow = Column(Float, nullable = False)
     corec = Column(Integer, nullable = False)
