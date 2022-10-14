@@ -13,6 +13,13 @@ router = APIRouter(
     tags=['Station']
 )
 
+@router.post("/",status_code=status.HTTP_201_CREATED)
 
+def station_create(station: schemas.StationCreate,db: Session = Depends(get_db)):
 
+    new_station = models.Station(**station.dict())
+    db.add(new_station)
+    db.commit()
+    db.refresh(new_station)
 
+    return {"data": "new_station"}
