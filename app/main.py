@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from passlib.context import CryptContext
 from . import models
 from .database import engine
-from .routers import user , station , data ,sensor ,region , balance ,discret
+from .routers import user , station , data ,sensor ,region , balance ,discret , auth
 
-
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -27,6 +27,7 @@ app.include_router(sensor.router)
 app.include_router(region.router)
 app.include_router(balance.router)
 app.include_router(discret.router)
+app.include_router(auth.router)
 
 
 

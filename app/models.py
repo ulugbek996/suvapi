@@ -58,6 +58,7 @@ class Sensor(Base):
 class Station(Base):
     __tablename__ = "stations"
     id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String , nullable=False)
     owner_id = Column(Integer, ForeignKey(
         "users.id", ondelete="CASCADE"))
     edit_id = Column(Integer, ForeignKey(
