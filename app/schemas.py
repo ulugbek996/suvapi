@@ -6,6 +6,16 @@ from pydantic.types import conint
 
 
 
+class UserOut(BaseModel):
+    id:int
+    first_name: str
+    last_name:str
+    email: str
+    login: str
+
+    class Config:
+        orm_mode = True
+
 
 class DataOut(BaseModel):
     level : float
@@ -18,19 +28,17 @@ class DataOut(BaseModel):
 
 class StationCreate(BaseModel):
     name: str
-    owner_id: int
     region_id: int
     tashkilot_id: int
     district_id: int
     sensor_id: int
     simcard: str
     code: str
-    update_at: str
 
 class StationOut(BaseModel):
     id : int
     name: str
-    owner_id: str
+    owner: UserOut
     edit_id: str
     region_id: str
     tashkilot_id: str
@@ -39,7 +47,8 @@ class StationOut(BaseModel):
     simcard: str
     code: str
     update_at: str
-    created_at : str
+    created_at: datetime
+
 
     class Config:
         orm_mode = True
@@ -51,26 +60,16 @@ class UserCreate(BaseModel):
     login: str
     password:str
 
-class UserOut(BaseModel):
-    id:int
-    first_name: str
-    last_name:str
-    email: str
-    login: str
 
-    class Config:
-        orm_mode = True
 
 class StationUpdate(BaseModel):
     name: str
-    edit_id: int
     region_id: int
     tashkilot_id: int
     district_id: int
     sensor_id: int
     simcard: str
     code: str
-    update_at: str
 
 class UserLogin(BaseModel):
     login: str
@@ -85,3 +84,18 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[str] = None
+
+class RegionOut(BaseModel):
+    id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
+class DiscretOut(BaseModel):
+    id: int
+    name: str
+    region : RegionOut
+
+    class Config:
+        orm_mode = True

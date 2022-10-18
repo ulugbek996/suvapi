@@ -14,10 +14,10 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/", response_model=List[schemas.DiscretOut])
 def get_discret(db:Session = Depends(get_db)):
     discret = db.query(models.District).all()
-    return {"message": discret}
+    return discret
 
 @router.get("/{id}")
 def get_discretid(id: int, db:Session = Depends(get_db)):

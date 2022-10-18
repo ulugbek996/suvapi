@@ -48,6 +48,8 @@ class District(Base):
     name = Column(String, nullable=False)
     region_id = Column(Integer, ForeignKey(
         "regions.id", ondelete="CASCADE"))
+    region = relationship("Region")
+
 
 class Sensor(Base):
     __tablename__ = "sensors"
@@ -59,8 +61,6 @@ class Station(Base):
     __tablename__ = "stations"
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String , nullable=False)
-    owner_id = Column(Integer, ForeignKey(
-        "users.id", ondelete="CASCADE"))
     edit_id = Column(Integer, ForeignKey(
         "users.id", ondelete="CASCADE"))
     region_id = Column(Integer, ForeignKey(
@@ -76,6 +76,10 @@ class Station(Base):
     update_at = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False, server_default=text('now()'))
+    owner_id = Column(Integer, ForeignKey(
+        "users.id", ondelete="CASCADE"), nullable=False)
+    owner = relationship("User")
+
 
 
 
