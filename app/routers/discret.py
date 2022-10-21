@@ -14,9 +14,10 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=List[schemas.DiscretOut])
+@router.get("/")
 def get_discret(db:Session = Depends(get_db)):
-    discret = db.query(models.District).all()
+    discret = db.query(models.District).join(models.Region , models.Region.id == models.District.region_id).all()
+    print(db)
     return discret
 
 @router.get("/{id}")

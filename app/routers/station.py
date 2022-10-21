@@ -15,9 +15,10 @@ router = APIRouter(
 
 
 
-@router.get("/" ,response_model=List[schemas.StationOut])
+@router.get("/")
 def get_stations(db:Session = Depends(get_db)):
-    station = db.query(models.Station).all()
+    station = db.query(models.Station).join(models.Region).all()
+    print(type(station))
     return station
 
 

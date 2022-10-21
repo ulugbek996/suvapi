@@ -73,12 +73,12 @@ class Station(Base):
         "sensors.id", ondelete="CASCADE"))
     simcard = Column(String, nullable=False)
     code = Column(String,unique=True , nullable=False)
-    update_at = Column(String, nullable=False)
+    update_at = Column(String)
     created_at = Column(TIMESTAMP(timezone=True),
                         nullable=False, server_default=text('now()'))
     owner_id = Column(Integer, ForeignKey(
         "users.id", ondelete="CASCADE"), nullable=False)
-    owner = relationship("User")
+    #owner = relationship("User")
 
 
 

@@ -38,15 +38,15 @@ class StationCreate(BaseModel):
 class StationOut(BaseModel):
     id : int
     name: str
-    owner: UserOut
-    edit_id: str
+    owner_id: int
+    edit_id: Optional[str]
     region_id: str
     tashkilot_id: str
     district_id: str
     sensor_id: str
     simcard: str
     code: str
-    update_at: str
+    update_at: Optional[str]
     created_at: datetime
 
 
